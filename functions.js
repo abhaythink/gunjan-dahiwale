@@ -61,3 +61,35 @@ function cube(x)
 }
 let y = 2;
 console.log(cube(y));
+
+//Recursive function
+
+function sumN(n)
+{
+    if(n<=0)
+        return 0;
+    return sumN(n-1)+n;
+}
+console.log(sumN(4));
+
+//default parameters
+function hii(msg = "heloo")
+{
+    return msg;
+}
+console.log(hii());
+
+function add(x = 1, y = x, z = x + y) {
+    return x + y + z;
+}
+
+console.log(add()); 
+
+function add(x, y = 1, z = 2) {
+    console.log( "length",arguments.length );
+    return x + y + z;
+}
+
+add(10); // 1
+add(10, 20); // 2
+add(10, 20, 30); // 3
