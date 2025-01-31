@@ -1,0 +1,24 @@
+[
+    {
+        "name": "XYX",
+        "class": "10th",
+        "Rollno": 233,
+        "age": 16,
+        "section": "A"
+    },
+    {
+        "name": "ABC",
+        "class": "10th",
+        "Rollno": 234,
+        "age": 16,
+        "section": "B"
+    },
+    {
+        "name": "PQR",
+        "class": "10th",
+        "Rollno": 235,
+        "age": 16,
+        "section": "C"
+    }
+]
+
