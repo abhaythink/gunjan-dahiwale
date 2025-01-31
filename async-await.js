@@ -36,3 +36,9 @@ const promise1 = new Promise((res, rej) => {
 });
 
 Math.random() > 0.5 ? resolve1("Success") : reject1("Error");
+
+try{
+    console.log('hii');
+} catch {
+    console.log('not found');  
+}
