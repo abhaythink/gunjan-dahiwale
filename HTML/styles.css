@@ -1,0 +1,54 @@
+:root {
+    --div-background-color: red;
+    --div-text-color: blue;
+    --div-padding: 10px;
+    --div-margin: 20px;
+}
+
+body {
+    background-color: black;
+}
+
+.gridContainer{
+    display: grid;
+    float: left;
+    grid-template-columns: repeat(2, 100px);
+    grid-column-gap: 20px;
+    grid-row-gap: 10px;
+}
+
+.grid-item-1{
+    grid-column-start: 1;
+    grid-column-end: 6;
+    width: 200px;
+    height: 100px;
+    background-color: aqua;
+}
+
+.grid-item-2{
+    width: 200px;
+    height: 100px;
+    background-color: rgb(92, 150, 26);
+}
+
+.grid-item-3{
+    width: 200px;
+    height: 100px;
+    background-color: rgb(231, 86, 18);
+}
+
+.grid-item-4{
+    width: 200px;
+    height: 100px;
+    background-color: rgb(231, 18, 196);
+}
+
+.grid-item-5{
+    width: 200px;
+    height: 100px;
+    background-color: rgb(18, 128, 231);
+}
+
+.lorem {
+    background-color: var(--div-background-color);
+}
