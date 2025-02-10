@@ -3,8 +3,8 @@ import express from 'express';
 const app = express();
 import bodyParser from 'body-parser';
 // const routes = require('./routes/employee');
-import {default as routes} from './routes/employee.js';
-
+import {default as routes} from './routes/user.js';
+ 
 import multer from 'multer';
 import path from 'path';
 const storage = multer.diskStorage({
