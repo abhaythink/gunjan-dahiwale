@@ -14,16 +14,14 @@ const User = sequelize.define("User", {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,   
         validate: {
             isEmail: true,
         },
     },
     phone: {
         type: DataTypes.INTEGER,
-        unique: true,
     }
-})
+});
 
 // Sync Database
 (async () => {
@@ -34,5 +32,15 @@ const User = sequelize.define("User", {
       console.error("❌ Error syncing database:", error);
     }
   })();
+
+// (async () => {
+//     try {
+//         await sequelize.getQueryInterface().removeIndex('Users', 'email');
+//         console.log("✅ Phone index dropped successfully.");
+//     } catch (error) {
+//         console.error("❌ Error dropping phone index:", error);
+//     }
+// })();
+
 
 export default User;
