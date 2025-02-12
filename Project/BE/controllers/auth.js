@@ -7,10 +7,6 @@ export const signup = async (req, res) => {
         const { name, email, password, status } = req.body;
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
-
-        console.log("Password received:", password);
-        console.log("Type of password:", typeof password);
-
         const newUser = new UserProfile({
             name, email, password: hashedPassword, status
         })
