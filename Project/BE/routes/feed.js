@@ -8,12 +8,12 @@ router.get('/posts', getPost);
 
 router.get('/:postId', getPostById);
 
-// router.post('/post',[
-//     body('title').trim().isLength({min: 5}),
-//     body('content').trim().isLength({min: 5}),
-// ], createPost);
+router.post('/post',[
+    body('title').trim().isLength({min: 5}),
+    body('content').trim().isLength({min: 5}),
+], createPost);
 
-// router.put('/post/:postId', updatePost);
+router.put('/post/:postId', updatePost);
 
-// router.delete('/post/:postId', deletePost);
+router.delete('/post/:postId', deletePost);
 export default router;

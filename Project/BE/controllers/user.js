@@ -6,7 +6,9 @@ export const createUser = async(req, res) => {
         const user = await UserProfile.create({name, email, password, status});
         res.status(201).json(user);
     } catch(error) {
-        res.json({error: error.message});
+        console.log(error);
+        
+        res.json({error: error});
     }
 }
 

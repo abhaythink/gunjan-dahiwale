@@ -14,14 +14,14 @@ export const sequelize = new Sequelize(
 );
 
 // Test Database Connection
-(async () => {
+export const connectDB = async () => {
   try {
-    // await sequelize.authenticate();
-    await sequelize.sync({ alter: true });
+    await sequelize.authenticate(); // ✅ Check DB connection
+    await sequelize.sync({ alter: true }); // ✅ Sync models
     console.log("✅ Database connected successfully.");
   } catch (error) {
     console.error("❌ Unable to connect to the database:", error);
+    process.exit(1); // Stop the server if DB connection fails
   }
-})();
-
+};
 

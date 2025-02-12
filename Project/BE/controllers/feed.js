@@ -3,8 +3,9 @@ import Feed from '../models/feed.js';
 
 export const getPost = async(req, res) => {
     try{
+        const totalFeeds = await Feed.count();
         const feeds = await Feed.findAll();
-        res.json(feeds);
+        res.json({feeds, totalFeeds});
     } catch(error) {
         res.json({error: error.message});
     }
@@ -34,7 +35,7 @@ export const getPostById = async (req, res) => {
         
         res.json(post);
     } catch(err) {
-        res.status(500).json({error: err.message});
+        res.json({error: err});
     }
 }
 

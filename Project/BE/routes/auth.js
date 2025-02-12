@@ -1,12 +1,12 @@
 import express from 'express';
 import { body } from 'express-validator';
 import UserProfile from '../models/userProfile.js';
-import {signup} from '../controllers/auth.js';
+import {signup, login} from '../controllers/auth.js';
 import { createUser, getUser } from '../controllers/user.js';
 
 const router = express.Router();
 
-router.put('/signup', [
+router.post('/signup', [
     body('email')
         .isEmail()
         .withMessage('Enter a valid mail')
@@ -20,6 +20,8 @@ router.put('/signup', [
     body('password').trim().isLength({min: 5}),
     body('name').trim().not().isEmpty()
 ], signup);
+
+router.post('/login', login);
 
 router.post('/user', createUser);
 
