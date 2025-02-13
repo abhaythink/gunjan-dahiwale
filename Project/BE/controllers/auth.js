@@ -2,6 +2,8 @@ import UserProfile from "../models/userProfile.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+const JWT_KEY = "Gunjan";
+
 export const signup = async (req, res) => {
     try {
         const { name, email, password, status } = req.body;
@@ -34,10 +36,11 @@ export const login = async (req, res) => {
         },
             JWT_KEY,
             {
-                expiresIn: "1h"
+                expiresIn: "1m"
             });
         res.json({ message: "Login successfully" })
-
+        console.log(token);
+        
     } catch (err) {
         res.json({ error: err.message })
     }
