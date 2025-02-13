@@ -1,5 +1,6 @@
 // import express from 'express';
 import Feed from '../models/feed.js';
+import UserProfile from '../models/userProfile.js';
 
 export const getPost = async(req, res) => {
     try{
@@ -13,9 +14,11 @@ export const getPost = async(req, res) => {
 
 export const createPost = async(req, res) => {
     try{
-        const {title, content} = req.body;
-        
-        const feed = await Feed.create({title, content});
+        const {title, content, userId, image} = req.body;
+        const user = await UserProfile.findByPk(userId);
+        if(!user)
+            return res.json({message: "This user does not exists"})
+        const feed = await Feed.create({title, content, userId, image}, {raw: true});
         
         res.status(201).json(feed);
     }
@@ -69,11 +72,12 @@ export const deletePost = async(req, res) =>{
     try{
         const postId = req.params.postId;
         const post = await Feed.findByPk(postId);
-        if(!post)
-            return res.status(404).json({error: 'Post not found'});
+        // if(!post)
+        //     return res.status(404).json({error: 'Post not found'});
         post.destroy();
         res.json({message: "POst deleted successfully"})
     } catch(err) {
-        res.json(500).json({error: err.message});
+        console.log("error while deleting post", err);
+        res.json({err});
     }
 }

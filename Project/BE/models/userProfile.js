@@ -30,8 +30,8 @@ const UserProfile = sequelize.define("UserProfile", {
     }
 })  
 
-UserProfile.hasMany(Feed, {foreignKey: 'userId', as: 'posts'});
+// UserProfile.hasMany(Feed, {foreignKey: 'userId', as: 'posts'});
 
-Feed.belongsTo(UserProfile, {foreignKey: 'userId', as: 'user'});
+// Feed.belongsTo(UserProfile, {foreignKey: 'userId', as: 'user'});
 
 export default UserProfile;

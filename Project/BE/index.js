@@ -5,6 +5,7 @@ import multer from "multer";
 import { connectDB } from "./utils/db.js";
 import feedRoutes from "./routes/feed.js";
 import userRoutes from "./routes/auth.js";
+import ProfilePictureRoutes from "./routes/profilePicture.js";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -38,7 +39,23 @@ app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
 
 app.use("/feed", feedRoutes);
 app.use("/auth", userRoutes);
+app.use("/picture", ProfilePictureRoutes);
 
+app.all('*', (req, res, next) => {
+    const err = new Error(`Can't find ${req.originalUrl} on the server`);
+    err.status = 'fail';
+    err.statusCode = 404;
+    next(err);
+})
+
+app.use((error, req, res, next) => {
+    error.statusCode = error.statusCode || 500;
+    error.status = error.status || 'error';
+    res.status(error.statusCode).json({
+        status: error.statusCode,
+        message : error.message
+    });
+}); 
 
 const startServer = async () => {
   await connectDB(); 
