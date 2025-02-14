@@ -2,10 +2,11 @@ import express from 'express';
 import { body } from 'express-validator';
 import { getPost, createPost, getPostById, updatePost, deletePost} from '../controllers/feed.js';
 import { createLike, getLikesForFeed } from '../controllers/like.js';
+import {jwtMiddleware} from '../auth/authMiddeware.js'
 
 const router = express.Router();
 
-router.get('/posts', getPost);
+router.get('/posts', jwtMiddleware, getPost);
 
 router.get('/:postId', getPostById);
 

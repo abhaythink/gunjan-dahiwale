@@ -18,13 +18,13 @@ export const createPost = async(req, res) => {
         const user = await UserProfile.findByPk(userId);
         if(!user)
             return res.json({message: "This user does not exists"})
-        const feed = await Feed.create({title, content, userId, image}, {raw: true});
+        const feed = await Feed.create({title, content, userId, image});
         
         res.status(201).json(feed);
     }
     catch(error) {
         res.json({error: error.message});
-    }
+    }   
 }
 
 export const getPostById = async (req, res) => {

@@ -3,6 +3,7 @@ import { body } from 'express-validator';
 import UserProfile from '../models/userProfile.js';
 import {signup, login} from '../controllers/auth.js';
 import { createUser, getUser } from '../controllers/user.js';
+import {authorizationMiddleware, jwtMiddleware} from '../auth/authMiddeware.js';
 
 const router = express.Router();
 
@@ -11,8 +12,8 @@ router.post('/signup', [
         .isEmail()
         .withMessage('Enter a valid mail')
         .normalizeEmail()
-        .custom(async (value, { req }) => { // ✅ Fixed Arrow Function
-            const userDoc = await UserProfile.findOne({ where: { email: value } }); // ✅ Correct Query
+        .custom(async (value, { req }) => { 
+            const userDoc = await UserProfile.findOne({ where: { email: value } }); 
             if (userDoc) {
                 return Promise.reject('Email already exists');
             }
@@ -26,8 +27,8 @@ router.post('/login',[
         .isEmail()
         .withMessage('Enter a valid mail')
         .normalizeEmail()
-        .custom(async (value, { req }) => { // ✅ Fixed Arrow Function
-            const userDoc = await UserProfile.findOne({ where: { email: value } }); // ✅ Correct Query
+        .custom(async (value, { req }) => { 
+            const userDoc = await UserProfile.findOne({ where: { email: value } }); 
             if (userDoc) {
                 return Promise.reject('Email already exists');
             }
@@ -38,6 +39,6 @@ router.post('/login',[
 
 router.post('/user', createUser);
 
-router.get('/users', getUser);
+router.get('/users', jwtMiddleware, authorizationMiddleware('admin'), getUser);
 
 export default router;

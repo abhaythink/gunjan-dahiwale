@@ -20,6 +20,11 @@ const UserProfile = sequelize.define("UserProfile", {
         type: DataTypes.STRING,
         allowNull: false
     },
+    role:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'user'
+    },
     status: {
         type: DataTypes.STRING,
         defaultValue: 'Pending'
