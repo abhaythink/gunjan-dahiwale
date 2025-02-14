@@ -8,8 +8,8 @@ export const createUser = async(req, res) => {
         const user = await UserProfile.create({name, email, password, status});
         res.status(201).json(user);
     } catch(error) {
-        console.log(error);
-        res.json({error});
+        res.json({error: "Error while creating user"});
+        console.log("Error", err); 
     }
 }
 
@@ -18,6 +18,7 @@ export const getUser = async(req, res) =>{
         const user = await UserProfile.findAll();
         res.json(user);
     } catch(error){
-        res.json(error);
+        res.json({error: "Error while fetching user"});
+        console.log("Error", err); 
     }
 }

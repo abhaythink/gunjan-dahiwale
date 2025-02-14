@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
-    next(); // Pass control to the next middleware/route
+    next(); 
 });
 
 

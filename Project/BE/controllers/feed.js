@@ -4,8 +4,9 @@ import UserProfile from '../models/userProfile.js';
 
 export const getPost = async(req, res) => {
     try{
-        const totalFeeds = await Feed.count();
         const feeds = await Feed.findAll();
+        const totalFeeds = feeds.length;
+
         res.json({feeds, totalFeeds});
     } catch(error) {
         res.json({error: error.message});
@@ -15,30 +16,28 @@ export const getPost = async(req, res) => {
 export const createPost = async(req, res) => {
     try{
         const {title, content, userId, image} = req.body;
-        const user = await UserProfile.findByPk(userId);
+        const user = await UserProfile.findOne({where: {userId}});
         if(!user)
-            return res.json({message: "This user does not exists"})
-        const feed = await Feed.create({title, content, userId, image});
-        
+            return res.status(404).json({message: "This user does not exists"})
+        const feed = await Feed.create({title, content, userId, image});    
         res.status(201).json(feed);
     }
     catch(error) {
-        res.json({error: error.message});
+        res.json({error: "Error while creating post"});
+        console.log("Error", error);  
     }   
 }
 
 export const getPostById = async (req, res) => {
     try{
         const postId = req.params.postId;
-        console.log(postId);
-        
         const post = await Feed.findByPk(postId);
         if(!post)
             return res.status(404).json({error: "Post not found"});
-        
-        res.json(post);
+        res.status(201).json(post);
     } catch(err) {
-        res.json({error: err});
+        res.json({error: "Error while fetching post"});
+        console.log("Error", err); 
     }
 }
 
@@ -46,24 +45,20 @@ export const updatePost = async(req, res) => {
     try{
         const {title, content} = req.body;
         const postId = req.params.postId;
-        const post = await Feed.findByPk(postId);
-        
+        const post = await Feed.findByPk(postId);  
         if(!post)
             return res.status(404).json({error: 'Post not found'});
         post.title = title;
         post.content = content;
-        console.log(post);
-        
-        // await Feed.save();
         await Feed.update(
             { title, content },
             { where: { id: postId } } 
-          );
-          
-        res.json(post);
+          );    
+        res.status(201).json(post);
     }
     catch(err) {
-        res.json({error: err.message});
+        res.json({error: "Error while updating post"});
+        console.log("Error", err); 
     }
 }
 
@@ -72,12 +67,12 @@ export const deletePost = async(req, res) =>{
     try{
         const postId = req.params.postId;
         const post = await Feed.findByPk(postId);
-        // if(!post)
-        //     return res.status(404).json({error: 'Post not found'});
+        if(!post)
+            return res.status(404).json({error: 'Post not found'});
         post.destroy();
-        res.json({message: "POst deleted successfully"})
+        res.json({message: "Post deleted successfully"})
     } catch(err) {
-        console.log("error while deleting post", err);
-        res.json({err});
+        res.json({error: "Error while deleting post"});
+        console.log("Error", err); 
     }
 }
